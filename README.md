@@ -6,6 +6,49 @@
 # 参考 Android_Gradle_DSL_3.3
 https://github.com/angcyo/Android_Gradle_DSL_3.3
 
+# Groovy
+
+`gradle` 构建脚本使用的 `groovy` 语言编写.
+
+官方地址:
+[http://groovy-lang.org/documentation.html](http://groovy-lang.org/documentation.html)
+
+API文档地址:
+[http://groovy-lang.org/api.html](http://groovy-lang.org/api.html)
+
+API扩展文档地址:
+[http://groovy-lang.org/gdk.html](http://groovy-lang.org/gdk.html)
+
+---
+
+# Gradle
+
+官方文档: [https://docs.gradle.org/current/userguide/userguide.html](https://docs.gradle.org/current/userguide/userguide.html)
+
+接口/对象 | 默认实现
+---|---
+project | org.gradle.api.internal.project.DefaultProject
+project.tasks | org.gradle.api.internal.tasks.DefaultTaskContainer
+task | org.gradle.api.DefaultTask
+
+
+
+任务类型(task type) | 默认实现
+---|---
+type: Jar | org.gradle.api.tasks.bundling.Jar
+type: Copy | org.gradle.api.tasks.Copy
+type: Zip | org.gradle.api.tasks.bundling.Zip
+type: Delete | org.gradle.api.tasks.Delete
+type: Exec | org.gradle.api.tasks.Exec
+... | println it.class
+
+
+`task` 官方介绍: 
+
+https://docs.gradle.org/current/dsl/org.gradle.api.Task.html
+
+---
+
 ## 声明一个`task`
 
 ```groovy
@@ -23,6 +66,29 @@ task _test2(type: Jar){
 ```
 
 [所有可用`type`](https://docs.gradle.org/current/dsl/#N1042A)
+
+## 声明一个带有依赖的`task`
+
+```groovy
+task _testTask(dependsOn: ['compileApkReleaseJavaWithJavac'], type: Jar) {
+
+}
+```
+
+## 动态创建一个`task`
+
+```groovy
+def newTask = project.tasks.create("newTask")
+newTask.doFirst {
+    println "new task first." + it.name
+}
+newTask.doLast {
+    println "new task last." + it.name
+}
+project.tasks.add(newTask)
+
+```
+
 
 
 ## `task`的3个阶段
@@ -79,4 +145,15 @@ task _testTask() {
     }
 }
 ```
+
+### 系列`Gradle`操作文章
+
+[https://angcyo.blog.csdn.net/article/category/9283298](https://angcyo.blog.csdn.net/article/category/9283298)
+
+---
+
+## 未完待续
+
+持续更新...
+
 
